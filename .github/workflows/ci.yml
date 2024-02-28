@@ -27,7 +27,9 @@ jobs:
         with:
           node-version: 20
           cache: 'npm'
-      - run: npm ci
+      # Don't use ci while testing beta version of nx as peer dependencies might conflict
+      # - run: npm ci
+      - run: npm install
       - uses: nrwl/nx-set-shas@v4
 
       - run: npx nx-cloud record -- nx format:check
