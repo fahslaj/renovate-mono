@@ -1,4 +1,15 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": ["config:recommended"]
+  "extends": ["config:recommended"],
+  "ignoreDeps": [
+    "@nx/cli",
+    "@nx/devkit",
+    "@nx/jest",
+    "@nx/tao",
+    "@nx/jest",
+    "@nx/tao",
+    "@types/jest",
+    "jest",
+    "ts-jest"
+  ]
 }
