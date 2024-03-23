@@ -33,4 +33,8 @@ jobs:
       - uses: nrwl/nx-set-shas@v4
 
       - run: npx nx-cloud record -- nx format:check
+
+      # install playwright browsers
+      - run: npx playwright install
+
       - run: npx nx affected -t lint test build e2e-ci

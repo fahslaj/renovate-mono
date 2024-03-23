@@ -2,7 +2,7 @@
 # `nx migrate` when renovate opens a PR to change the version of @nx/workspace.
 #
 # You will therefore also notice that in the renovate configuration, we ignore any packages which
-# Nx will manage for us as part of `nx migrate` such as the remaining @nrwl/* packages and jest.
+# Nx will manage for us as part of `nx migrate` such as the remaining @nx/* packages and jest.
 
 name: Nx Migrate
 
@@ -34,15 +34,15 @@ jobs:
         uses: nrwl/nx-set-shas@v4
 
       - name: Check if @nx/workspace was changed as part of the latest commit on the PR
-        id: nrwl-workspace-package-check
+        id: nx-workspace-package-check
         run: |
           git diff HEAD~1 -G"@nx/workspace" --exit-code package.json && echo "@nx/workspace unchanged" || echo "::set-output name=was-changed::true"
 
       - name: Run nx migrate if @nx/workspace changed and commit the results
-        if: ${{ steps.nrwl-workspace-package-check.outputs.was-changed == 'true' }}
+        if: ${{ steps.nx-workspace-package-check.outputs.was-changed == 'true' }}
         env:
           # We cannot use secrets.GITHUB_TOKEN for this because it is not permitted to kick off subsequent actions workflow runs, so we use a PAT instead
-          GITHUB_TOKEN: ${{ secrets.JAMES_HENRY_GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_PAT }}
           # We don't want to run any of our postinstall logic when Nx is invoking install behind the scenes
           SKIP_POSTINSTALL: 'true'
         run: |
